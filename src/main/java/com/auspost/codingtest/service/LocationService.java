@@ -11,8 +11,7 @@ import org.springframework.util.StringUtils;
 
 import com.auspost.codingtest.dao.ILocationDAO;
 import com.auspost.codingtest.entity.Locations;
-//@Service
-@Component
+@Service
 @Lazy
 public class LocationService implements ILocationService {
 	@Autowired

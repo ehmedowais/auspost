@@ -18,8 +18,7 @@ import com.auspost.codingtest.entity.Locations;
  *
  */
 //@Transactional
-//@Repository
-@Component
+@Repository
 public class LocationDAO implements ILocationDAO {
 	@PersistenceContext
 	private EntityManager entityManager;
