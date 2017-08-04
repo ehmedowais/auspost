@@ -1,7 +1,6 @@
 package com.auspost.codingtest.controller;
 import java.util.List;
 
-import org.apache.camel.Produce;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -13,7 +12,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -21,6 +19,11 @@ import com.auspost.codingtest.entity.Locations;
 import com.auspost.codingtest.exceptions.LocationException;
 import com.auspost.codingtest.service.ILocationService;
 import com.auspost.codingtest.util.Validator;
+
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 
 /**
  * 
@@ -49,11 +52,20 @@ import com.auspost.codingtest.util.Validator;
  */
 @RestController
 @RequestMapping("auspost")
+@Api(description="This controller is used to define entry point for Locations service",value="locations")
 public class LocationController {
 	@Autowired
 	private ILocationService locationService;
 	@GetMapping("location/{id}")
+	
 	@CrossOrigin(origins = "http://localhost:9000")
+	@ApiOperation(value = "View available Location for a particular Id, this api is used to get the suburb/postcode information if you know the id of record", response = Locations.class)
+	@ApiResponses(value = {
+	        @ApiResponse(code = 200, message = "Successfully retrieved list"),
+	        @ApiResponse(code = 404, message = "Resource you are looking is not available"),
+	        @ApiResponse(code = 500, message = "There is some internal server error has occorred")
+		}
+	)
 	public ResponseEntity<Locations> getLocationById(@PathVariable("id") Integer id) {
 		Locations location = locationService.getLocationById(id);
 		return new ResponseEntity<Locations>(location, HttpStatus.OK);

@@ -25,7 +25,7 @@ public class SwaggerConfig {
                     // .paths(regex("/api/*"))
                     .build()
                 .pathMapping("/")
-                .apiInfo(new ApiInfo("Test", "Testing", "0.0.1", "http://localhost:/auspost", "", "", ""));
+                .apiInfo(new ApiInfo("Location Service for Australia Post", "Documenting Location Service for Australia Post", "0.0.1", "http://localhost:/auspost/*", "", "", ""));
 	}
 	
 
