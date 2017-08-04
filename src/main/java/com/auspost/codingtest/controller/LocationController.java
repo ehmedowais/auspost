@@ -1,11 +1,13 @@
 package com.auspost.codingtest.controller;
 import java.util.List;
 
+import org.apache.camel.Produce;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -50,8 +52,8 @@ import com.auspost.codingtest.util.Validator;
 public class LocationController {
 	@Autowired
 	private ILocationService locationService;
-	//@GetMapping("location/{id}")
-	@RequestMapping(method = RequestMethod.GET, value = "/location/{id}")
+	@GetMapping("location/{id}")
+	@CrossOrigin(origins = "http://localhost:9000")
 	public ResponseEntity<Locations> getLocationById(@PathVariable("id") Integer id) {
 		Locations location = locationService.getLocationById(id);
 		return new ResponseEntity<Locations>(location, HttpStatus.OK);
@@ -93,7 +95,7 @@ public class LocationController {
         headers.setLocation(builder.path("/location/{id}").buildAndExpand(location.getLocationId()).toUri());
         return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
 	}
-	@GetMapping("error")
+	@GetMapping("routes")
 	public ResponseEntity<String> handleErrors()
 	{
 		String responseHtml = "<html><h1>There is an error in ur request</h1></html>";

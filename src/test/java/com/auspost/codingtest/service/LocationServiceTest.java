@@ -1,28 +1,24 @@
 package com.auspost.codingtest.service;
 
+import javax.persistence.EntityManager;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.auspost.codingtest.dao.ILocationDAO;
 import com.auspost.codingtest.entity.Locations;
-import static org.mockito.Mockito.*;
 
-import javax.persistence.EntityManager;
-import javax.sql.DataSource;
-
-import junit.framework.Assert;
+import static junit.framework.Assert.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest
 @ContextConfiguration
 public class LocationServiceTest {
-	//@MockBean
+	
 	@Autowired
 	EntityManager em;
 	@Autowired
@@ -36,7 +32,7 @@ public class LocationServiceTest {
 		locations.setSuburb("Caroline springs");
 		//when(locationDAO.getLocationById(1)).thenReturn(locations);
 		Locations location =locationDAO.getLocationById(2);
-		Assert.assertEquals(location.getPostcode(), "3037");
+		assertEquals(location.getPostcode(), "3037");
 	}
 
 }

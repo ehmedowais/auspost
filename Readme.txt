@@ -1,0 +1,1 @@
+Sweggar Documentation can be viewed at http://localhost:8080/swagger-ui.html
