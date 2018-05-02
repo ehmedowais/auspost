@@ -17,9 +17,8 @@ import com.auspost.codingtest.entity.Locations;
  * This is the DAO class this class works with LocationService class
  *
  */
-//@Transactional
-//@Repository
-@Component
+@Transactional
+@Repository
 public class LocationDAO implements ILocationDAO {
 	@PersistenceContext
 	private EntityManager entityManager;
