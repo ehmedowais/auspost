@@ -10,3 +10,17 @@ INSERT INTO `locations` (`location_id`, `suburb`, `postcode`) VALUES
 	(2, 'HILSIDE', '3037'),
 	(3, 'BURNSIDE HEIGHTS', '3023'); 
 	
+CREATE TABLE `users` (
+  `username` varchar(40) NOT NULL COMMENT 'userName',
+  `password` varchar(45) NOT NULL,
+  `enabled` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`username`),
+  UNIQUE KEY `USER_NAME_UNIQUE` (`username`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `user_roles` (
+  `username` varchar(40) NOT NULL,
+  `role` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`username`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+	
