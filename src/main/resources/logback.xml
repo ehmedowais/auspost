@@ -23,19 +23,19 @@
 
     <!-- 3rdparty Loggers -->
     <logger name="org.springframework"
-            level="warn">
+            level="error">
     </logger>
 
     <logger name="org.springframework.beans"
-            level="warn">
+            level="error">
     </logger>
 
     <logger name="org.springframework.core"
-            level="warn">
+            level="error">
     </logger>
 
     <logger name="org.hibernate"
-            level="info">
+            level="error">
     </logger>
 
    
