@@ -77,7 +77,7 @@ public class LocationControllerTest {
 			MvcResult result = mockMvc.perform(requestBuilder).andReturn();
 			MockHttpServletResponse response = result.getResponse();
 	        Assert.assertEquals(HttpStatus.OK.value(), response.getStatus());
-	        String expected = "[{\"locationId\":1,\"suburb\":\"HILSIDE\",\"postcode\":\"3038\"}]";
+	        String expected = "[{\"locationId\":1,\"suburb\":\"HILSIDE\",\"postcode\":\"3037\"}]";
 	        JSONAssert.assertEquals(expected, response.getContentAsString(), false);
 		
 
