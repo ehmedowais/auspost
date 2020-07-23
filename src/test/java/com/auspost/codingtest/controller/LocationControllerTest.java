@@ -86,11 +86,11 @@ public class LocationControllerTest {
 	    public void testCreateLocation()throws Exception{
 	    	String responseURI="http://localhost:8080/location/12";
 	    	Locations location = new Locations();
-	    	location.setPostcode("3123");
+	    	location.setPostcode("3122");
 	    	location.setSuburb("TARNIET");
 	    	Mockito.when(locationService.addLocation(Mockito.any(Locations.class))).thenReturn(true);
-	    	RequestBuilder requestBuilder = MockMvcRequestBuilders.post("/auspost/location").
-	    			accept(MediaType.APPLICATION_JSON)
+	    	RequestBuilder requestBuilder = MockMvcRequestBuilders.post("/auspost/location")
+	    			.accept(MediaType.APPLICATION_JSON)
 	    			.contentType(MediaType.APPLICATION_JSON)
 	    			.content("{\"postcode\":\"3123\",\"suburb\":\"DonCaster\"}");
 	    	MvcResult result = mockMvc.perform(requestBuilder).andReturn();
