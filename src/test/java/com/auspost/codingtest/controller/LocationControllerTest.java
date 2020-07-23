@@ -77,7 +77,7 @@ public class LocationControllerTest {
 			MvcResult result = mockMvc.perform(requestBuilder).andReturn();
 			MockHttpServletResponse response = result.getResponse();
 	        Assert.assertEquals(HttpStatus.OK.value(), response.getStatus());
-	        String expected = "[{\"locationId\":1,\"suburb\":\"HILSIDE\",\"postcode\":\"3037\"}]";
+	        String expected = "[{\"locationId\":1,\"suburb\":\"HILSIDE\",\"postcode\":\"3038\"}]";
 	        JSONAssert.assertEquals(expected, response.getContentAsString(), false);
 		
 
@@ -86,7 +86,7 @@ public class LocationControllerTest {
 	    public void testCreateLocation()throws Exception{
 	    	String responseURI="http://localhost:8080/location/12";
 	    	Locations location = new Locations();
-	    	location.setPostcode("3122");
+	    	location.setPostcode("3123");
 	    	location.setSuburb("TARNIET");
 	    	Mockito.when(locationService.addLocation(Mockito.any(Locations.class))).thenReturn(true);
 	    	RequestBuilder requestBuilder = MockMvcRequestBuilders.post("/auspost/location")
