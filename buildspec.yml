@@ -54,6 +54,6 @@ phases:
   #name: $(date +%Y-%m-%d)
   #discard-paths: yes
   #base-directory: location
-#cache:
-  #paths:
-    # - paths
+cache:
+  paths:
+    - '/root/.m2/**/*'
