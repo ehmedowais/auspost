@@ -17,12 +17,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	@Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-    	/*
-        auth.inMemoryAuthentication()
-                .withUser("user1").password("secret1").roles("USER")
-                .and()
-                .withUser("user2").password("secret2").roles("USER");
-        */
+    	
+//        auth.inMemoryAuthentication()
+//                .withUser("user1").password("secret1").roles("USER")
+//                .and()
+//                .withUser("user2").password("secret2").roles("USER");
+//        
         
 		auth.jdbcAuthentication().dataSource(dataSource).
 		authoritiesByUsernameQuery("select username,password,enabled from users where username =?")
@@ -33,8 +33,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
     	
         //http.authorizeRequests().antMatchers("/auspost/location").fullyAuthenticated();
-    	http.authorizeRequests().antMatchers("/auspost/location")
-    	.access("hasRole('ROLE_USER')").anyRequest().permitAll();
+    	http.authorizeRequests().antMatchers("/","/auspost/*").permitAll().anyRequest().authenticated();
+    	//.access("hasRole('ROLE_USER')").anyRequest().permitAll();
         http.httpBasic();
         http.csrf().disable();
     }

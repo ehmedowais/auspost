@@ -57,7 +57,8 @@ public class LocationController {
 		Locations location = locationService.getLocationById(id);
 		return new ResponseEntity<Locations>(location, HttpStatus.OK);
 	}
-	@GetMapping("locations")
+	
+	@RequestMapping(method = RequestMethod.GET, value = "/locations")
 	public ResponseEntity<List<Locations>> getAllLocations() {
 		List<Locations> list = locationService.getAllLocations();
 		return new ResponseEntity<List<Locations>>(list, HttpStatus.OK);
@@ -94,10 +95,5 @@ public class LocationController {
         headers.setLocation(builder.path("/location/{id}").buildAndExpand(location.getLocationId()).toUri());
         return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
 	}
-	@GetMapping("error")
-	public ResponseEntity<String> handleErrors()
-	{
-		String responseHtml = "<html><h1>There is an error in ur request</h1></html>";
-		return new ResponseEntity<String>(responseHtml,HttpStatus.INTERNAL_SERVER_ERROR);
-	}
+	
 } 
