@@ -84,7 +84,7 @@ public class LocationControllerTest {
 	    }
 	    @Test
 	    public void testCreateLocation()throws Exception{
-	    	String responseURI="http://localhost:8080/location/12";
+	    	
 	    	Locations location = new Locations();
 	    	location.setPostcode("3123");
 	    	location.setSuburb("TARNIET");
