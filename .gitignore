@@ -2,6 +2,6 @@
 ./target/
 .settings
 /target/
-/.classpath
+./.history
 /.project
 /logs/
