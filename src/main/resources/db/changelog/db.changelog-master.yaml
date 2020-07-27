@@ -1,27 +1,27 @@
 databaseChangeLog:
   - changeSet:
-        id: 2
+        id: 4
         author: ahmedm
         changes:
             - sqlFile:
-                dbms: mysql
+                dbms: h2
                 encoding: utf8
                 endDelimiter: \nGO
-                path: sql/00-Create-Tables.sql
+                path: sql/01-Create-Tables.sql
                 relativeToChangelogFile: true
                 splitStatements: true
                 stripComments: true
 
 
   - changeSet:
-          id: 3
+          id: 5
           author: ahmedm
           changes:
               - sqlFile:
-                  dbms: mysql
+                  dbms: h2
                   encoding: utf8
                   endDelimiter: \nGO
-                  path: sql/01-Insert-Test-Data.sql
+                  path: sql/02-Insert-Test-Data.sql
                   relativeToChangelogFile: true
                   splitStatements: true
                   stripComments: true
