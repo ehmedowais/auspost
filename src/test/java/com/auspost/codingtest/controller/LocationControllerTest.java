@@ -25,7 +25,7 @@ import com.auspost.codingtest.entity.Locations;
 import com.auspost.codingtest.service.LocationService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@WebMvcTest(value = LocationController.class, secure = false)
+@WebMvcTest(value = LocationController.class)
 public class LocationControllerTest {
 	
 		
