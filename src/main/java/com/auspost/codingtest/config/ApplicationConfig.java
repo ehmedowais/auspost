@@ -1,8 +1,13 @@
 package com.auspost.codingtest.config;
 
+import com.auspost.codingtest.filters.CorrelationHeaderFilter;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.h2.tools.Server;
+
+import java.util.Arrays;
+
 @Configuration
 public class ApplicationConfig {
     @Bean
@@ -16,5 +21,13 @@ public class ApplicationConfig {
         }
         return server;
 
+    }
+    @Bean
+    public FilterRegistrationBean correlationHeaderFilter() {
+        FilterRegistrationBean filterRegBean = new FilterRegistrationBean();
+        filterRegBean.setFilter(new CorrelationHeaderFilter());
+        filterRegBean.setUrlPatterns(Arrays.asList("/*"));
+
+        return filterRegBean;
     }
 }
