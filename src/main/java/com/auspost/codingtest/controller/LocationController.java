@@ -1,12 +1,16 @@
 package com.auspost.codingtest.controller;
 import java.util.List;
 
+
+import com.auspost.codingtest.util.RequestCorrelation;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.StringUtils;
-import org.springframework.validation.annotation.Validated;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -49,18 +53,23 @@ import com.auspost.codingtest.util.Validator;
 @RestController
 @RequestMapping("auspost")
 public class LocationController {
+	private static final Logger LOGGER = LoggerFactory.getLogger(LocationController.class);
 	@Autowired
 	private ILocationService locationService;
-	//@GetMapping("location/{id}")
-	@RequestMapping(method = RequestMethod.GET, value = "/location/{id}")
+	@GetMapping("location/{id}")
 	public ResponseEntity<Locations> getLocationById(@PathVariable("id") Integer id) {
 		Locations location = locationService.getLocationById(id);
 		return new ResponseEntity<Locations>(location, HttpStatus.OK);
 	}
 	@GetMapping("locations")
 	public ResponseEntity<List<Locations>> getAllLocations() {
+		LOGGER.info("CorrelationID => "+RequestCorrelation.getId());
 		List<Locations> list = locationService.getAllLocations();
-		return new ResponseEntity<List<Locations>>(list, HttpStatus.OK);
+
+		HttpHeaders responseHeaders = new HttpHeaders();
+		responseHeaders.set(RequestCorrelation.CORRELATION_ID_HEADER, RequestCorrelation.getId());
+
+		return ResponseEntity.ok().headers(responseHeaders).body(list);
 	}
 	@GetMapping("suburbs/{suburb}")
 	public ResponseEntity<List<Locations>> getSuburbInfo(@PathVariable("suburb") String suburb) throws LocationException{

@@ -19,7 +19,11 @@
             <pattern>%d{yyyy-MM-dd HH:mm:ss} %-5p %c %X - %m%n</pattern>
         </encoder>
     </appender>
-
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender" >
+        <encoder>
+            <pattern>%-5relative %-5level %logger{35} - %msg%n</pattern>
+        </encoder>
+    </appender>
 
     <!-- 3rdparty Loggers -->
     <logger name="org.springframework"
@@ -42,6 +46,6 @@
 
     <root level="info">
         
-        <appender-ref ref="FILE"/>
+        <appender-ref ref="STDOUT"/>
     </root>
 </configuration>
