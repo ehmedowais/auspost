@@ -42,7 +42,7 @@ public class LocationDAO implements ILocationDAO {
 
 	@Override
 	public boolean locationExists(String suburb, String postcode) {
-		String hql = "FROM Locations as lctn WHERE lctn.suburb = ? and lctn.postcode = ?";
+		String hql = "FROM Locations as lctn WHERE lctn.suburb = ?1 and lctn.postcode = ?2";
 		int count = entityManager.createQuery(hql).setParameter(1, suburb).setParameter(2, postcode).getResultList()
 				.size();
 		return count > 0 ? true : false;
@@ -53,7 +53,7 @@ public class LocationDAO implements ILocationDAO {
 	public List<Locations> getLocationBySuburbAndPostcode(String suburb, String postcode) {
 		List<Locations> locations = null;
 		
-		String hql = "FROM Locations as lctn WHERE lctn.suburb = ? and lctn.postcode = ?";
+		String hql = "FROM Locations as lctn WHERE lctn.suburb = ?1 and lctn.postcode = ?2";
 		locations = (List<Locations>) entityManager.createQuery(hql).setParameter(1, suburb)
 				.setParameter(2, postcode).getResultList();
 		return locations;
@@ -63,7 +63,7 @@ public class LocationDAO implements ILocationDAO {
 	@SuppressWarnings("unchecked")
 	public List<Locations> getLocationBySuburb(String suburb) {
 		List<Locations> locations;
-		String hql = "FROM Locations as lctn WHERE upper(lctn.suburb) = ? ";
+		String hql = "FROM Locations as lctn WHERE upper(lctn.suburb) = ?1 ";
 		locations = (List<Locations>) entityManager.createQuery(hql).setParameter(1, suburb.toUpperCase()).getResultList();
 		return locations;
 	}
@@ -72,7 +72,7 @@ public class LocationDAO implements ILocationDAO {
 	@SuppressWarnings("unchecked")
 	public List<Locations> getLocationByPostcode(String postcode) {
 		List<Locations> locations;
-		String hql = "FROM Locations as lctn WHERE upper(lctn.postcode) = ? ";
+		String hql = "FROM Locations as lctn WHERE upper(lctn.postcode) = ?1 ";
 		locations = (List<Locations>) entityManager.createQuery(hql).setParameter(1, postcode).getResultList();
 		return locations;
 	}
