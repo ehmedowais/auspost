@@ -4,3 +4,5 @@ We have added ApplicationConfig class to start the h2 database in browseable mod
 ### Add Correlation Id in message (AddCorrelationIdInMessage)
 In this branch we are adding Servlet Filter, so we could inject the correlation id in request and 
 response
+good article to read
+https://dzone.com/articles/implementing-correlation-ids-0
