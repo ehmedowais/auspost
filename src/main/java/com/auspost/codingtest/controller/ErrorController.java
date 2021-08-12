@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 
-@RestController
+//@RestController
 public class ErrorController extends AbstractErrorController {
     public ErrorController(ErrorAttributes errorAttributes) {
         super(errorAttributes);
