@@ -16,7 +16,7 @@ public class LocationException extends Exception {
 	}
 
 	public String getMessage() {
-		return message + " corelId => "+ corelId;
+		return message;
 	}
 
 	public void setMessage(String message) {
