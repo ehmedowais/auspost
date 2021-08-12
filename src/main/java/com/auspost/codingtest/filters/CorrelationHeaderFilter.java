@@ -19,6 +19,7 @@ public class CorrelationHeaderFilter implements Filter {
 
 
     public void init(FilterConfig filterConfig) throws ServletException {
+
         LOGGER.info("Correlation Filter has been initialized");
     }
 
@@ -29,12 +30,12 @@ public class CorrelationHeaderFilter implements Filter {
 
         final HttpServletRequest httpServletRequest = (HttpServletRequest) servletRequest;
         String currentCorrId = httpServletRequest.getHeader(RequestCorrelation.CORRELATION_ID_HEADER);
-
+        String requestUri = httpServletRequest.getRequestURI();
         if (currentCorrId == null) {
             currentCorrId = UUID.randomUUID().toString();
-            LOGGER.info("No correlationId found in Header. Generated : " + currentCorrId);
+            LOGGER.info("No correlationId found in Header. Generated : " + currentCorrId + "\n requested for "+requestUri);
         } else {
-            LOGGER.info("Found correlationId in Header : " + currentCorrId);
+            LOGGER.info("Found correlationId in Header : " + currentCorrId + "\n requested for "+requestUri);
         }
 
         RequestCorrelation.setId(currentCorrId);

@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -59,24 +58,31 @@ public class LocationController {
 	@GetMapping("location/{id}")
 	public ResponseEntity<Locations> getLocationById(@PathVariable("id") Integer id) {
 		Locations location = locationService.getLocationById(id);
+		RequestCorrelation.logResponse( LOGGER, "SUCCESS");
 		return new ResponseEntity<Locations>(location, HttpStatus.OK);
 	}
 	@GetMapping("locations")
 	public ResponseEntity<List<Locations>> getAllLocations() {
-		LOGGER.info("CorrelationID => "+RequestCorrelation.getId());
+
 		List<Locations> list = locationService.getAllLocations();
 
 		HttpHeaders responseHeaders = new HttpHeaders();
 		responseHeaders.set(RequestCorrelation.CORRELATION_ID_HEADER, RequestCorrelation.getId());
-
+		RequestCorrelation.logResponse( LOGGER, "SUCCESS");
 		return ResponseEntity.ok().headers(responseHeaders).body(list);
 	}
 	@GetMapping("suburbs/{suburb}")
 	public ResponseEntity<List<Locations>> getSuburbInfo(@PathVariable("suburb") String suburb) throws LocationException{
+
 		if(StringUtils.isEmpty(suburb)){
-			throw new LocationException("No suburb information provided, please provide a valid suburb",HttpStatus.BAD_REQUEST);
+			throw new LocationException("No suburb information provided, please provide a valid suburb.",HttpStatus.BAD_REQUEST);
 		}
 		List<Locations> suburbs = locationService.getLocationByDetail(suburb,null);
+		if(suburbs.size() < 1) {
+			throw new LocationException("No suburb information provided, please provide a valid suburb.",HttpStatus.BAD_REQUEST);
+
+		}
+		RequestCorrelation.logResponse( LOGGER, "SUCCESS");
 		return new ResponseEntity<List<Locations>>(suburbs, HttpStatus.OK);
 	}
 	@GetMapping("postcodes/{postcode}")
@@ -87,6 +93,7 @@ public class LocationController {
 			throw new LocationException("Invalid postcode, please provide four digit australian postcode",HttpStatus.BAD_REQUEST);
 		}
 		List<Locations> postcodes = locationService.getLocationByDetail(null,postcode);
+		RequestCorrelation.logResponse( LOGGER, "SUCCESS");
 		return new ResponseEntity<List<Locations>>(postcodes, HttpStatus.OK);
 	}
 	@PostMapping("location")
@@ -101,6 +108,7 @@ public class LocationController {
         }
         HttpHeaders headers = new HttpHeaders();
         headers.setLocation(builder.path("/location/{id}").buildAndExpand(location.getLocationId()).toUri());
+		RequestCorrelation.logResponse( LOGGER, "SUCCESS");
         return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
 	}
 

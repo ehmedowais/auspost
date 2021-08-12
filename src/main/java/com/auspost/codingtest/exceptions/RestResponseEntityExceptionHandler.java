@@ -1,8 +1,9 @@
 package com.auspost.codingtest.exceptions;
 
-import java.sql.SQLException;
-
+import com.auspost.codingtest.util.RequestCorrelation;
 import org.hibernate.exception.SQLGrammarException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -14,12 +15,13 @@ import com.auspost.codingtest.util.RestResponse;
 
 @ControllerAdvice
 public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionHandler {
-
+    private static final Logger LOGGER = LoggerFactory.getLogger(RestResponseEntityExceptionHandler.class);
 	@ExceptionHandler(value = { LocationException.class })
     protected ResponseEntity<RestResponse<Object>> handleUnknownException(LocationException ex, WebRequest request) {
-       
-
-       return new ResponseEntity<RestResponse<Object>>(new RestResponse(Boolean.FALSE, ex.getMessage(), null), ex.getStatus());
+       String exceptionMsg = ex.getMessage() + " HttpStatus: "+ ex.getStatus();
+        RequestCorrelation.logError(LOGGER, exceptionMsg);
+       return new ResponseEntity<RestResponse<Object>>(
+               new RestResponse(Boolean.FALSE, ex.getMessage(), null), ex.getStatus());
      }
 	
 	@ExceptionHandler(value = { SQLGrammarException.class })
