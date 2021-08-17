@@ -35,12 +35,13 @@ public class CorrelationHeaderFilter implements Filter {
             currentCorrId = UUID.randomUUID().toString();
             LOGGER.info("No correlationId found in Header. Generated : " + currentCorrId + "\n requested for "+requestUri);
         } else {
-            LOGGER.info("Found correlationId in Header : " + currentCorrId + "\n requested for "+requestUri);
+            LOGGER.info("Found correlationId in Header : " + currentCorrId + " requested for "+requestUri);
         }
 
         RequestCorrelation.setId(currentCorrId);
 
         filterChain.doFilter(httpServletRequest, servletResponse);
+        RequestCorrelation.logResponse(LOGGER, "SUCCESS");
     }
 
 

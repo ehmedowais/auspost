@@ -4,6 +4,8 @@ import com.auspost.codingtest.util.RequestCorrelation;
 import org.hibernate.exception.SQLGrammarException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.dao.DataAccessException;
+import org.springframework.dao.InvalidDataAccessApiUsageException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -29,5 +31,9 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
        
 
        return new ResponseEntity<RestResponse<Object>>(new RestResponse(Boolean.FALSE, ex.getSQLException().getMessage(), "Responsible: DAO Layer"), HttpStatus.INTERNAL_SERVER_ERROR);
+     }
+     @ExceptionHandler(value ={InvalidDataAccessApiUsageException.class})
+     protected ResponseEntity<RestResponse<Object>> dataAccessException(InvalidDataAccessApiUsageException ex, WebRequest request) {
+         return new ResponseEntity<RestResponse<Object>>(new RestResponse(Boolean.FALSE, ex.getMessage(), "Responsible: DAO Layer"), HttpStatus.INTERNAL_SERVER_ERROR);
      }
 }
