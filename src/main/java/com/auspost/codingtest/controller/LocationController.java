@@ -68,7 +68,6 @@ public class LocationController {
 
 		HttpHeaders responseHeaders = new HttpHeaders();
 		responseHeaders.set(RequestCorrelation.CORRELATION_ID_HEADER, RequestCorrelation.getId());
-		RequestCorrelation.logResponse( LOGGER, "SUCCESS");
 		return ResponseEntity.ok().headers(responseHeaders).body(list);
 	}
 	@GetMapping("suburbs/{suburb}")
@@ -82,7 +81,7 @@ public class LocationController {
 			throw new LocationException("No suburb information provided, please provide a valid suburb.",HttpStatus.BAD_REQUEST);
 
 		}
-		RequestCorrelation.logResponse( LOGGER, "SUCCESS");
+
 		return new ResponseEntity<List<Locations>>(suburbs, HttpStatus.OK);
 	}
 	@GetMapping("postcodes/{postcode}")
@@ -93,7 +92,7 @@ public class LocationController {
 			throw new LocationException("Invalid postcode, please provide four digit australian postcode",HttpStatus.BAD_REQUEST);
 		}
 		List<Locations> postcodes = locationService.getLocationByDetail(null,postcode);
-		RequestCorrelation.logResponse( LOGGER, "SUCCESS");
+
 		return new ResponseEntity<List<Locations>>(postcodes, HttpStatus.OK);
 	}
 	@PostMapping("location")
@@ -108,7 +107,7 @@ public class LocationController {
         }
         HttpHeaders headers = new HttpHeaders();
         headers.setLocation(builder.path("/location/{id}").buildAndExpand(location.getLocationId()).toUri());
-		RequestCorrelation.logResponse( LOGGER, "SUCCESS");
+
         return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
 	}
 
